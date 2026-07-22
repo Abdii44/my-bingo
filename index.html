@@ -752,21 +752,33 @@ document.getElementById("roomStatus").innerHTML=
 }
     window.sendDeposit=function(amount,method){
 
+let money = Number(amount);
+
 if(currentUser){
+
+balance += money;
+
+set(
+ref(database,"players/"+currentUser+"/balance"),
+balance
+);
 
 set(
 ref(database,"payments/"+currentUser),
 {
 type:"deposit",
-amount:Number(amount),
+amount:money,
 method:method,
-status:"pending",
+status:"approved",
 time:Date.now()
 }
 );
 
-document.getElementById("payment").innerHTML=
-"✅ Gaaffiin qarshii galchuu ergame";
+document.getElementById("balance").innerHTML = balance;
+document.getElementById("topBalance").innerHTML = balance;
+
+document.getElementById("payment").innerHTML =
+"✅ Qarshiin dabale: "+money+" ETB";
 
 }
 
