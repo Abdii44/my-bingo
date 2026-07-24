@@ -514,8 +514,10 @@ if(window.saveLiveNumber){
 let ball = document.getElementById("machineBall");
 
 ball.innerHTML = n;
-ball.className = "ball";
-void ball.offsetWidth; // animation deebisee jalqaba
+
+ball.classList.remove("ball");
+
+void ball.offsetWidth;
 
 ball.classList.add("ball");
     document.getElementById("count").innerHTML =
