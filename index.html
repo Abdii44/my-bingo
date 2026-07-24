@@ -408,77 +408,76 @@ if(window.savePlayer){
     alert("Language changed: "+lang);
 }
 
- function start(){
+function start(){
 
-if(balance < 25){
+    if(balance < 25){
+        alert("Qarshii gahaa hin qabu!");
+        return;
+    }
 
-alert("Qarshii gahaa hin qabu!");
+    if(called.length >= 75){
+        alert("Lakkoofsi hundi ba'eera!");
+        return;
+    }
 
-return;
+    balance -= 25;
 
-}
+    document.getElementById("balance").innerHTML = balance;
+    document.getElementById("topBalance").innerHTML = balance;
 
-if(called.length>=75){
+    if(window.saveBalance){
+        window.saveBalance();
+    }
 
-alert("Lakkoofsi hundi ba'eera!");
+    let n;
 
-return;
+    do{
+        n = Math.floor(Math.random()*75)+1;
+    }
+    while(called.includes(n));
 
-}
 
-balance -= 25;
-
-document.getElementById("balance").innerHTML = balance;
-document.getElementById("topBalance").innerHTML = balance;
-if(window.saveBalance){
-    window.saveBalance();
-}
-
-let n;
-
-do{
-
-n=Math.floor(Math.random()*75)+1;
-
-}while(called.includes(n));
-
+    called.push(n);
+    count++;
 if(window.saveLiveNumber){
     window.saveLiveNumber(n);
 }
 
-called.push(n);
+    document.getElementById("number").innerHTML =
+    "Lakkoofsa: "+n;
 
-count++;
 
-document.getElementById("number").innerHTML=
-"Lakkoofsa: "+n;
+    document.getElementById("count").innerHTML =
+    "Lakkoofsa ba'e: "+count;
 
-document.getElementById("count").innerHTML=
-"Lakkoofsa ba'e: "+count;
 
-document.getElementById("history").innerHTML=
-called.join(" - ");
+    document.getElementById("history").innerHTML =
+    called.join(" - ");
 
-let cells=document.querySelectorAll("#board td");
 
-cells.forEach(cell=>{
 
-if(cell.dataset.number==n){
+    let cells=document.querySelectorAll("#board td");
 
-cell.innerHTML="🎱"+n;
+    cells.forEach(cell=>{
 
-cell.classList.add("mark");
+        if(cell.dataset.number == n){
 
-}
+            cell.innerHTML="🎱"+n;
 
-});
+            cell.classList.add("mark");
 
-checkWin();
+        }
+
+    });
+
+
+    checkWin();
 
 }
 function checkWin(){
 
 let cells=document.querySelectorAll("#board td");
+
 
 let lines=[
 
@@ -499,24 +498,34 @@ let lines=[
 
 ];
 
+
 for(let line of lines){
 
 if(line.every(i=>cells[i].classList.contains("mark"))){
 
-document.getElementById("win").innerHTML=
+
+document.getElementById("win").innerHTML =
 "🎉🎉 BINGO! MO'ATTE 🎉🎉";
+
 
 balance +=250;
 
+
 document.getElementById("balance").innerHTML =
 balance;
+
+
 document.getElementById("topBalance").innerHTML =
 balance;
+
+
 if(window.saveBalance){
     window.saveBalance();
 }
 
+
 alert("Ati mo'atte! 🎉");
+
 return;
 
 }
@@ -524,7 +533,6 @@ return;
 }
 
 }
-
     function deposit(){
 
 let amount=document.getElementById("amount").value;
@@ -567,15 +575,19 @@ window.sendWithdraw(amount);
 }
 
 }
-    function newGame(){
 
-      called=[];
-count=0;  
+function newGame(){
 
-document.getElementById("count").innerHTML=
+called=[];
+count=0;
+
+document.getElementById("number").innerHTML =
+"Lakkoofsa: -";
+
+document.getElementById("count").innerHTML =
 "Lakkoofsa ba'e: 0";
 
-document.getElementById("history").innerHTML=
+document.getElementById("history").innerHTML =
 "Lakkoofsa ba'e hin jiru";
 
 document.getElementById("win").innerHTML="";
@@ -591,11 +603,15 @@ document.getElementById("board").innerHTML=`
 </tr>
 
 `;
+
+
+
 
 createBoard();
 
 }
 
+
 document.getElementById("count").innerHTML=
 "Lakkoofsa ba'e: 0";
 
@@ -615,6 +631,11 @@ document.getElementById("board").innerHTML=`
 </tr>
 
 `;
+
+
+
+
+
 
 createBoard();
 
@@ -641,7 +662,7 @@ onAuthStateChanged
 }
 from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 const firebaseConfig = {
-  apiKey: "API_KEY_KEE_ASLI",
+
   authDomain: "abdii-binfo.firebaseapp.com",
   databaseURL: "https://abdii-binfo-default-rtdb.firebaseio.com",
   projectId: "abdii-binfo",
