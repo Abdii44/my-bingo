@@ -313,7 +313,15 @@ td{
 
 </div>
 </div>
+<div class="bingo-machine">
 
+    <div class="machine-glass">
+        <span id="machineBall">🎱</span>
+    </div>
+
+</div>
+
+<div class="pipe"></div>
 <h2 id="number">Lakkoofsa: -</h2>
 
 <p id="count">
@@ -503,7 +511,10 @@ if(window.saveLiveNumber){
 
     document.getElementById("number").innerHTML =
     "Lakkoofsa: "+n;
+let ball = document.getElementById("machineBall");
 
+ball.innerHTML = n;
+ball.className = "ball";
 
     document.getElementById("count").innerHTML =
     "Lakkoofsa ba'e: "+count;
